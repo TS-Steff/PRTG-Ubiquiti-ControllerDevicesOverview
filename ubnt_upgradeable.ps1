@@ -20,7 +20,7 @@
 
 
 param(
-	[string]$server = '10.4.4.25',
+	[string]$server = 'ubnt.domain.com',
 	[string]$port = '8443',
 	[array]$sites = @('default',"SiteID2","SiteID3"),
 	[string]$username = 'user',
