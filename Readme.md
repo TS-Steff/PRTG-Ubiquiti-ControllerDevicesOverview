@@ -17,6 +17,7 @@ You have to edit six variables
 ## Credits
 Many thants to Luciano Lingnau [Paessler Support]
 <https://kb.paessler.com/users/Luciano%20Lingnau%20%5BPaessler%20Support%5D>
+
 <https://kb.paessler.com/en/topic/71263-can-i-monitor-ubiquiti-unifi-network-devices-with-prtg#reply-243681>
 
 He wrote the most part of this script. We just adopted and changed the script to fit our needs
