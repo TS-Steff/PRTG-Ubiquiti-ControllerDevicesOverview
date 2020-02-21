@@ -5,7 +5,7 @@ Sensor view
 ![PRTG Screenshot](/Screenshots/prtg.png?raw=true "PRTG Screenshot")
 
 The settings page may look like this
-![PRTG Settings](/Scrennshots/settings.png?raw=true "PRTG Sensor Settings")
+![PRTG Settings](/Screenshots/settings.png?raw=true "PRTG Sensor Settings")
 
 ## Config
 Add an EXE/Script Advanced sensor to your PRTG Site
