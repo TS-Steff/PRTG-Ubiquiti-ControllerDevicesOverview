@@ -80,7 +80,7 @@ $gwUpgradeable = 0
 
 if($sites.Count -eq 0){
     #write-host "No sites set" -ForegroundColor Red
-    $allSites = Invoke-WebRequest -Uri "$controller/api/self/sites" -WebSession $myWebSession
+    $allSites = Invoke-WebRequest -Uri "$controller/api/self/sites" -WebSession $myWebSession -UseBasicParsing
     $allSites = ConvertFrom-Json($allSites)
 
     foreach($site in $allSites.data){
@@ -111,55 +111,46 @@ foreach ($site in $sites){
 	    Write-Output "</prtg>"
 	    Exit
     }
+    
+    Foreach ($entry in $jsonresultat.data){
+        # Access Points
+        if($entry.type -eq "uap"){
+            $apCount++
 
-    # Acces Points
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.type -like "uap"})){
-	    $apCount ++
+            # APs Connected
+            if($entry.state -eq 1){ $apConnected++ }
+            
+            # APs Upgradeable
+            if($entry.upgradable -eq "True"){ $apUpgradeable++}
+        }
+
+        # Switches
+        if($entry.type -eq "usw"){
+            $switchCount++
+
+            # USW Connected
+            if($entry.state -eq 1){ $switchConnected++ }
+
+            # USW Upgradeable
+            if($entry.upgradable -eq "True"){ $switchUpgradeable++ }
+        }
+
+        # Security Gateways
+        if($entry.type -eq "usg"){
+            $gwCount++
+
+            # USG Connected
+            if($entry.state -eq 1){ $gwConnected++ }
+
+            # USG Upgradeable
+            if($entry.upgradable -eq "True"){ $gwUpgradeable++ }
+        }
+
     }
-
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.state -eq "1" -and $_.type -like "uap"})){
-	    $apConnected ++
-    }
-
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.state -eq "1" -and $_.type -like "uap" -and $_.upgradable -eq "true"})){
-	    $apUpgradeable ++
-    }
-
-
-
-    # Switches
-    Foreach ($entry in ($jsonresultat.data | where-Object { $_.type -like "usw"})){
-        $switchCount ++
-    }
-
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.state -eq "1" -and $_.type -like "usw"})){
-	    $switchConnected ++
-    }
-
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.state -eq "1" -and $_.type -like "usw" -and $_.upgradable -eq "true"})){
-	    $switchUpgradeable ++
-    }
-
-
-
-    # Security Gateways
-    Foreach ($entry in ($jsonresultat.data | where-Object { $_.type -like "ugw"})){
-        $gwCount ++
-    }
-
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.state -eq "1" -and $_.type -like "ugw"})){
-	    $gwConnected ++
-    }
-
-    Foreach ($entry in ($jsonresultat.data | where-object { $_.state -eq "1" -and $_.type -like "ugw" -and $_.upgradable -eq "true"})){
-	    $gwUpgradeable ++
-    }
-
 }
 
 # Stop debug timer
 $queryMeasurement.Stop()
-
 
 
 # Write result
@@ -213,8 +204,6 @@ Write-Host "<channel>Gateways Upgradeable</channel>"
 Write-Host "<value>$($gwUpgradeable)</value>"
 Write-Host "</result>"
 
-
-
 Write-Host "<result>"
 Write-Host "<channel>Response Time</channel>"
 Write-Host "<value>$($queryMeasurement.ElapsedMilliseconds)</value>"
@@ -222,9 +211,6 @@ Write-Host "<CustomUnit>msecs</CustomUnit>"
 Write-Host "</result>"
 
 write-host "</prtg>"
-
-
-
 
 # Write JSON file to disk when -debug is set. For troubleshooting only.
 if ($debug){
