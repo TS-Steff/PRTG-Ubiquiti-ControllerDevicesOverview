@@ -136,7 +136,7 @@ foreach ($site in $sites){
         }
 
         # Security Gateways
-        if($entry.type -eq "usg"){
+        if($entry.type -eq "ugw"){
             $gwCount++
 
             # USG Connected
