@@ -21,9 +21,9 @@ You have to pass six parameters
 | debug        | debug mode                                   | writes the json to the disk if set true                                     |
 
 ## History
-| Date       | Description
-| ---------- |
-| 2023-04-12 | Added counter for disconnected devices
+| Date       | Description                                                                             |
+| ---------- | --------------------------------------------------------------------------------------- |
+| 2023-04-12 | Added counter for disconnected devices                                                  |
 
 ## Credits
 Many thants to Luciano Lingnau [Paessler Support]
