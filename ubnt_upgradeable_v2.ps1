@@ -69,12 +69,15 @@ $null = Invoke-Restmethod -Uri "$controller/api/login" -method post -body $crede
 
 $apCount = 0
 $apConnected = 0
+$apDisconnected = 0
 $apUpgradeable = 0
 $switchCount = 0
 $switchConnected = 0
+$switchDisconnected = 0
 $switchUpgradeable = 0
 $gwCount = 0
 $gwConnected = 0
+$gwDisconnected = 0
 $gwUpgradeable = 0
 
 
@@ -123,6 +126,7 @@ foreach ($site in $sites){
             # APs Upgradeable
             if($entry.upgradable -eq "True"){ $apUpgradeable++}
         }
+        $apDisconnected = $apCount - $apConnected
 
         # Switches
         if($entry.type -eq "usw"){
@@ -134,6 +138,7 @@ foreach ($site in $sites){
             # USW Upgradeable
             if($entry.upgradable -eq "True"){ $switchUpgradeable++ }
         }
+        $switchDisconnected = $switchCount - $switchConnected
 
         # Security Gateways
         if($entry.type -eq "ugw"){
@@ -145,6 +150,7 @@ foreach ($site in $sites){
             # USG Upgradeable
             if($entry.upgradable -eq "True"){ $gwUpgradeable++ }
         }
+        $gwDisconnected = $gwCount - $gwConnected
 
     }
 }
@@ -168,6 +174,11 @@ Write-Host "<value>$($apConnected)</value>"
 Write-Host "</result>"
 
 Write-Host "<result>"
+Write-Host "<channel>Access Points Disconnected</channel>"
+Write-Host "<value>$($apDisconnected)</value>"
+Write-Host "</result>"
+
+Write-Host "<result>"
 Write-Host "<channel>Access Points Upgradeable</channel>"
 Write-Host "<value>$($apUpgradeable)</value>"
 Write-Host "</result>"
@@ -184,6 +195,11 @@ Write-Host "<value>$($switchConnected)</value>"
 Write-Host "</result>"
 
 Write-Host "<result>"
+Write-Host "<channel>Switches Disconnected</channel>"
+Write-Host "<value>$($switchDisconnected)</value>"
+Write-Host "</result>"
+
+Write-Host "<result>"
 Write-Host "<channel>Switches Upgradeable</channel>"
 Write-Host "<value>$($switchUpgradeable)</value>"
 Write-Host "</result>"
@@ -197,6 +213,11 @@ Write-Host "</result>"
 Write-Host "<result>"
 Write-Host "<channel>Gateways Connected</channel>"
 Write-Host "<value>$($gwConnected)</value>"
+Write-Host "</result>"
+
+Write-Host "<result>"
+Write-Host "<channel>Gateways Disconnected</channel>"
+Write-Host "<value>$($gwDisconnected)</value>"
 Write-Host "</result>"
 
 Write-Host "<result>"
