@@ -24,7 +24,7 @@ param(
 	[string]$server = '',
 	[string]$port = '',
 	[array]$sites = @(),
-    [array]$excludeSite = @(),
+	[array]$excludeSite = @(),
 	[string]$username = 'user',
 	[string]$password = 'pass',
 	[switch]$debug = $false
