@@ -29,6 +29,7 @@ You have to pass six parameters
 | ---------- | --------------------------------------------------------------------------------------- |
 | 2023-04-12 | Added counter for disconnected devices                                                  |
 |            | Updated readme.md                                                                       |
+| 2023-04-13 | Updated screenshot overview                                                             |
 
 ## Credits
 Many thants to Luciano Lingnau [Paessler Support]
